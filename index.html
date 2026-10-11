@@ -70,11 +70,8 @@
 
       <!-- ====================== قسم الهيرو (الصفحة الرئيسية) ====================== -->
       <section class="hero" id="home">
-        <!-- أشكال زخرفية ملونة في الخلفية فقط للتجميل -->
+        <!-- بلوب وردي واحد فقط للتجميل، بعيداً عن الصورة حتى لا يتعارض مع ألوانها الداخلية -->
         <div class="blob blob-pink"></div>
-        <div class="blob blob-yellow"></div>
-        <div class="blob blob-green"></div>
-        <div class="blob blob-blue"></div>
 
         <div class="container">
           <!-- العمود الأول: النص والأزرار -->
@@ -111,7 +108,8 @@
 
           <!-- العمود الثاني: صورة الشخصية -->
           <div class="hero-image-wrap">
-            <img src="source.jpeg" alt="Illustration of Malak working on her laptop" />
+            <!-- illustration.png صورة نظيفة ومربعة بدون أي نص زائد، class="portrait-crop" يجعلها تملأ الشكل الدائري بتناسق -->
+            <img src="illustration.png" alt="Illustration of Malak working on her laptop" class="portrait-crop" />
           </div>
         </div>
 
@@ -133,7 +131,7 @@
           <div class="about-grid">
             <!-- نفس الصورة تُستخدم هنا بقص مختلف لإظهارها كصورة شخصية مربعة -->
             <div class="about-image">
-              <img src="source.jpeg" alt="Malak Mohammed portrait" />
+              <img src="illustration.png" alt="Malak Mohammed portrait" class="portrait-crop" />
             </div>
 
             <div class="about-text">
