@@ -1,0 +1,329 @@
+<!--
+  ملف index.html - النسخة الإنجليزية (الاتجاه LTR من اليسار لليمين)
+  هذا هو الهيكل (Structure) الخاص بالموقع، بينما الشكل والألوان موجودة في style.css
+  أي عنصر هنا له class="..." فهذا يعني أن تنسيقه موجود في ملف CSS بنفس اسم الكلاس
+-->
+<!DOCTYPE html>
+<!-- DOCTYPE يخبر المتصفح أن هذا المستند مكتوب بآخر نسخة من HTML (HTML5) -->
+<html lang="en" dir="ltr">
+  <!-- lang="en" يخبر المتصفح ومحركات البحث أن لغة المحتوى إنجليزية -->
+  <!-- dir="ltr" يحدد اتجاه الكتابة من اليسار لليمين (الوضع الطبيعي للإنجليزية) -->
+
+  <head>
+    <!-- كل ما بداخل head لا يظهر على الصفحة مباشرة، بل معلومات تهيئة للمتصفح -->
+    <meta charset="UTF-8" />
+    <!-- يحدد ترميز الأحرف UTF-8 حتى تظهر كل الرموز والإيموجي بشكل صحيح -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- يجعل الصفحة تتكيف تلقائياً مع عرض شاشة الجهاز (موبايل/تابلت/كمبيوتر) -->
+    <title>Malak Mohammed | Web Developer Portfolio</title>
+    <!-- العنوان الذي يظهر في تبويب المتصفح -->
+
+    <!-- استيراد خطوط Google Fonts: Baloo 2 للعناوين المستديرة، Poppins للنصوص العادية -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- ربط ملف التنسيق الخارجي: كل شكل وألوان هذه الصفحة موجودة هناك -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- checkbox مخفي خاص بتبديل الوضع الليلي، يجب أن يكون أول عنصر داخل body
+         حتى نقدر نستخدم محدد CSS الأخوة ( ~ ) على العنصر اللي بعده مباشرة -->
+    <input type="checkbox" id="theme-toggle" />
+
+    <!-- كل محتوى الصفحة بالكامل محاط بهذا العنصر، لأن CSS يستهدفه عند تفعيل الوضع الليلي -->
+    <div class="page-wrapper">
+      <!-- ====================== الهيدر وشريط التنقل ====================== -->
+      <header class="navbar">
+        <div class="container">
+          <!-- شعار الموقع، يحتوي على اسم مميز داخل span -->
+          <div class="logo">Malak <span>Portfolio</span></div>
+
+          <!-- روابط القائمة، كل رابط يشير إلى id موجود في قسم معين بالصفحة
+               وهذا ما يجعلها "تنتقل" عند الضغط (Anchor Links) -->
+          <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </nav>
+
+          <div class="nav-actions">
+            <!-- رابط تبديل اللغة: ينقل المستخدم لملف الصفحة العربية بالكامل
+                 (لأننا نستخدم HTML/CSS فقط بدون JavaScript، فالتبديل يتم بصفحة منفصلة) -->
+            <a href="index-ar.html" class="lang-switch">العربية</a>
+
+            <!-- label مرتبط بالـ checkbox عن طريق for="theme-toggle"
+                 الضغط على label هذا يُعتبر نفس الضغط على checkbox نفسه -->
+            <label for="theme-toggle" class="theme-label" aria-label="Toggle dark mode">
+              <span class="icon-moon">🌙</span>
+              <span class="icon-sun">☀️</span>
+            </label>
+          </div>
+        </div>
+      </header>
+
+      <!-- ====================== قسم الهيرو (الصفحة الرئيسية) ====================== -->
+      <section class="hero" id="home">
+        <!-- أشكال زخرفية ملونة في الخلفية فقط للتجميل -->
+        <div class="blob blob-pink"></div>
+        <div class="blob blob-yellow"></div>
+        <div class="blob blob-green"></div>
+        <div class="blob blob-blue"></div>
+
+        <div class="container">
+          <!-- العمود الأول: النص والأزرار -->
+          <div class="hero-text">
+            <p class="hero-greeting">Hello, I'm <span>👋</span></p>
+
+            <h1>
+              <span class="highlight">Malak</span> Mohammed
+            </h1>
+
+            <p class="role"><span class="highlight-blue">Web</span> Developer</p>
+
+            <p class="description">
+              I'm a passionate web developer who loves creating beautiful and
+              functional websites. I enjoy turning ideas into real projects
+              using HTML, CSS and more.
+            </p>
+
+            <div class="hero-buttons">
+              <!-- زر يأخذ المستخدم مباشرة لقسم Projects عن طريق الرابط #projects -->
+              <a href="#projects" class="btn btn-primary">View My Projects →</a>
+              <!-- زر يأخذ المستخدم مباشرة لقسم Contact -->
+              <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
+
+            <!-- أيقونات التواصل الاجتماعي، كل واحدة رابط خارجي حقيقي قابل للنقر -->
+            <div class="social-icons">
+              <a href="https://github.com" target="_blank" rel="noopener">🐙</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener">📷</a>
+              <a href="https://t.me" target="_blank" rel="noopener">✈️</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+            </div>
+          </div>
+
+          <!-- العمود الثاني: صورة الشخصية -->
+          <div class="hero-image-wrap">
+            <img src="source.jpeg" alt="Illustration of Malak working on her laptop" />
+          </div>
+        </div>
+
+        <!-- رابط حقيقي (<a>) وليس مجرد نص، لذلك هو قابل للنقر فعلياً وينقل المستخدم بسلاسة لقسم About بفضل href="#about" و scroll-behavior:smooth في CSS -->
+        <a href="#about" class="scroll-hint">
+          <span class="scroll-circle">⌄</span>
+          <span>Scroll Down</span>
+        </a>
+      </section>
+
+      <!-- ====================== قسم About (نبذة عني) ====================== -->
+      <section class="section" id="about">
+        <div class="container">
+          <h2 class="section-title">About <span class="highlight">Me</span></h2>
+          <p class="section-subtitle">
+            A quick introduction about who I am and what I do.
+          </p>
+
+          <div class="about-grid">
+            <!-- نفس الصورة تُستخدم هنا بقص مختلف لإظهارها كصورة شخصية مربعة -->
+            <div class="about-image">
+              <img src="source.jpeg" alt="Malak Mohammed portrait" />
+            </div>
+
+            <div class="about-text">
+              <p>
+                Hi! I'm Malak, a second-year university student majoring in
+                Web Development. I love combining clean code with simple,
+                friendly design to build websites people enjoy using.
+              </p>
+              <p>
+                I'm currently focused on sharpening my HTML &amp; CSS
+                fundamentals while exploring JavaScript, Git, and basic UI/UX
+                principles. This portfolio itself is one of my practice
+                projects!
+              </p>
+
+              <!-- بطاقات إحصائية وهمية فقط للعرض -->
+              <div class="about-stats">
+                <div class="stat-card">
+                  <span class="number">12+</span>
+                  <span class="label">Projects</span>
+                </div>
+                <div class="stat-card">
+                  <span class="number">2+</span>
+                  <span class="label">Years Learning</span>
+                </div>
+                <div class="stat-card">
+                  <span class="number">8+</span>
+                  <span class="label">Happy Clients</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== قسم Skills (المهارات) ====================== -->
+      <section class="section" id="skills" style="background:var(--color-primary-light)">
+        <!-- خلفية وردية فاتحة مباشرة هنا لتمييز هذا القسم عن الأقسام المجاورة -->
+        <div class="container">
+          <h2 class="section-title">My <span class="highlight">Skills</span></h2>
+          <p class="section-subtitle">
+            Technologies and tools I use to bring ideas to life.
+          </p>
+
+          <div class="skills-grid">
+            <!-- كل بطاقة مهارة فيها اسم ونسبة مئوية، والعرض الفعلي للشريط
+                 يتحدد بالسمة style="width:...%" لأن كل مهارة نسبتها مختلفة -->
+            <div class="skill-card">
+              <div class="skill-top"><span>HTML5</span><span>95%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>CSS3</span><span>90%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>JavaScript</span><span>70%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>Responsive Design</span><span>85%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>Git &amp; GitHub</span><span>75%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>Figma</span><span>65%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== قسم Projects (المشاريع) ====================== -->
+      <section class="section" id="projects">
+        <div class="container">
+          <h2 class="section-title">My <span class="highlight">Projects</span></h2>
+          <p class="section-subtitle">
+            A few practice projects that show what I've been learning.
+          </p>
+
+          <div class="projects-grid">
+            <!-- بطاقة مشروع 1 -->
+            <article class="project-card">
+              <div class="project-thumb thumb-1">☕ Coffee Shop</div>
+              <div class="project-body">
+                <h3>Coffee Shop Landing Page</h3>
+                <p>A warm, cozy landing page for a fictional coffee shop with a menu section and order button.</p>
+                <div class="project-tags"><span>HTML</span><span>CSS</span></div>
+                <a href="https://github.com" target="_blank" rel="noopener" class="project-link">View Project →</a>
+              </div>
+            </article>
+
+            <!-- بطاقة مشروع 2 -->
+            <article class="project-card">
+              <div class="project-thumb thumb-2">📝 Blog</div>
+              <div class="project-body">
+                <h3>Personal Blog Website</h3>
+                <p>A simple blog layout with article cards, a sidebar, and a clean reading experience.</p>
+                <div class="project-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                <a href="https://github.com" target="_blank" rel="noopener" class="project-link">View Project →</a>
+              </div>
+            </article>
+
+            <!-- بطاقة مشروع 3 -->
+            <article class="project-card">
+              <div class="project-thumb thumb-3">🍳 Recipes</div>
+              <div class="project-body">
+                <h3>Recipe Finder App UI</h3>
+                <p>A playful interface concept for browsing and saving favorite recipes.</p>
+                <div class="project-tags"><span>HTML</span><span>CSS</span></div>
+                <a href="https://github.com" target="_blank" rel="noopener" class="project-link">View Project →</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== قسم Contact (التواصل) ====================== -->
+      <section class="section" id="contact" style="background:var(--color-primary-light)">
+        <div class="container">
+          <h2 class="section-title">Get In <span class="highlight">Touch</span></h2>
+          <p class="section-subtitle">
+            Have a project in mind or just want to say hi? Reach out below.
+          </p>
+
+          <div class="contact-grid">
+            <!-- معلومات التواصل المباشرة (بيانات وهمية) -->
+            <div class="contact-info">
+              <div class="info-item">
+                <span class="info-icon">📧</span>
+                <span>malak.dev@example.com</span>
+              </div>
+              <div class="info-item">
+                <span class="info-icon">📱</span>
+                <span>+967 777 123 456</span>
+              </div>
+              <div class="info-item">
+                <span class="info-icon">📍</span>
+                <span>Sana'a, Yemen</span>
+              </div>
+
+              <div class="social-icons">
+                <a href="https://github.com" target="_blank" rel="noopener">🐙</a>
+                <a href="https://instagram.com" target="_blank" rel="noopener">📷</a>
+                <a href="https://t.me" target="_blank" rel="noopener">✈️</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+              </div>
+            </div>
+
+            <!-- نموذج تواصل: بما أنه لا يوجد JavaScript أو سيرفر، action="#"
+                 يعني أن الضغط على إرسال سيعيد تحميل نفس الصفحة فقط (للعرض التوضيحي) -->
+            <form class="contact-form" action="#" method="get">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <!-- required تجعل المتصفح يرفض الإرسال إذا كان الحقل فارغاً، تحقق بدون JavaScript -->
+                <input type="text" id="name" name="name" placeholder="Your name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== الفوتر ====================== -->
+      <footer class="footer">
+        <p>© 2026 Malak Mohammed. All rights reserved.</p>
+        <div class="social-icons">
+          <a href="https://github.com" target="_blank" rel="noopener">🐙</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener">📷</a>
+          <a href="https://t.me" target="_blank" rel="noopener">✈️</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+        </div>
+      </footer>
+    </div>
+    <!-- نهاية .page-wrapper -->
+  </body>
+</html>

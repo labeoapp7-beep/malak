@@ -1,0 +1,764 @@
+/* ====================================================================
+   ملف style.css
+   هذا هو ملف التنسيق (CSS) المسؤول عن شكل وألوان وتخطيط الموقع بالكامل.
+   يتم ربط هذا الملف بصفحات HTML عن طريق وسم <link rel="stylesheet" href="style.css">
+   الموجود داخل <head> في كل صفحة HTML.
+   كل "كلاس" (class) هنا مكتوب في هذا الملف، نفس الاسم موجود في HTML
+   داخل السمة class="..." وهذا هو الرابط بين الملفين.
+   ==================================================================== */
+
+/* -----------------------------
+   1) المتغيرات اللونية (CSS Variables)
+   نعرّف هنا الألوان والخطوط مرة واحدة باسم متغير، بدل ما نكررها
+   في كل سطر. أي عنصر في HTML يقدر يستخدم هذا المتغير عن طريق var(--اسم)
+   ----------------------------- */
+:root {
+  /* اللون الوردي الأساسي (يظهر في العنوان والأزرار) */
+  --color-primary: #ef6a94;          /* وردي غامق قليلاً */
+  --color-primary-light: #ffd9e4;    /* وردي فاتح جداً يستخدم كخلفية */
+  --color-secondary: #5aa9e6;        /* أزرق يستخدم لكلمة "Web" وبعض التفاصيل */
+  --color-yellow: #ffd166;           /* أصفر للزخارف */
+  --color-green: #b7e4c7;            /* أخضر فاتح للزخارف */
+  --color-blue-soft: #cfe8ff;        /* أزرق فاتح للزخارف */
+  --color-text: #2b2d42;             /* لون النص الأساسي (كحلي غامق) */
+  --color-text-light: #6c6f93;       /* لون نص فاتح للفقرات الثانوية */
+  --color-bg: #fdf7f4;               /* لون خلفية الموقع (بيج فاتح جداً) */
+  --color-card: #ffffff;             /* لون خلفية الكروت/البطاقات */
+  --color-border: #f1e3e8;           /* لون حدود خفيفة */
+  --radius-lg: 24px;                 /* دائرية الحواف الكبيرة (كروت، صور) */
+  --radius-md: 14px;                 /* دائرية الحواف المتوسطة (أزرار) */
+  --shadow-soft: 0 10px 30px rgba(239, 106, 148, 0.15); /* ظل ناعم وردي */
+  --font-heading: 'Baloo 2', cursive; /* خط العناوين المستدير الممتع */
+  --font-body: 'Poppins', sans-serif; /* خط النصوص العادية */
+}
+
+/* -----------------------------
+   2) إعادة ضبط عامة (Reset)
+   المتصفحات تضيف هوامش افتراضية مختلفة، فنصفرها هنا كي يكون التصميم
+   متطابق في كل المتصفحات ونتحكم نحن في المسافات يدوياً.
+   ----------------------------- */
+* {
+  margin: 0;              /* إلغاء أي هامش خارجي افتراضي لكل العناصر */
+  padding: 0;              /* إلغاء أي حشو داخلي افتراضي لكل العناصر */
+  box-sizing: border-box;  /* العرض والارتفاع يحسبان مع الحدود والحشو وليس بدونهم، يسهل الحسابات */
+}
+
+html {
+  scroll-behavior: smooth; /* عند الضغط على رابط داخلي (#about مثلاً) يتم التمرير بسلاسة بدل القفز المفاجئ */
+}
+
+body {
+  font-family: var(--font-body); /* نستخدم متغير الخط اللي عرفناه فوق */
+  background-color: var(--color-bg); /* لون خلفية الصفحة كاملة */
+  color: var(--color-text);          /* لون النص الافتراضي لكل الصفحة */
+  line-height: 1.7;                  /* المسافة بين سطور النص عشان القراءة تكون مريحة */
+  overflow-x: hidden;                /* يمنع ظهور سكرول أفقي بسبب الأشكال الزخرفية الخارجة عن الحواف */
+}
+
+img {
+  max-width: 100%;   /* الصورة لا تتجاوز عرض العنصر الحاوي لها أبداً */
+  display: block;    /* إزالة الفراغ الصغير الذي يظهر أسفل الصور تلقائياً */
+}
+
+a {
+  text-decoration: none; /* إزالة الخط السفلي الافتراضي من الروابط */
+  color: inherit;         /* الرابط يأخذ لون النص من العنصر الأب بدل اللون الأزرق الافتراضي */
+}
+
+ul {
+  list-style: none; /* إزالة النقاط الافتراضية من القوائم */
+}
+
+button {
+  font-family: inherit; /* الأزرار تستخدم نفس خط الموقع وليس خط المتصفح الافتراضي */
+  cursor: pointer;       /* شكل المؤشر يتحول ليد عند المرور فوق الزر، يدل أنه قابل للنقر */
+  border: none;          /* إزالة الحدود الافتراضية للأزرار */
+}
+
+/* -----------------------------
+   3) حاوية عامة لمحاذاة المحتوى في المنتصف
+   ----------------------------- */
+.container {
+  width: 90%;           /* العرض 90% من الشاشة عشان يترك هامش جانبي */
+  max-width: 1200px;    /* لا يتجاوز العرض 1200px حتى على الشاشات الكبيرة جداً */
+  margin: 0 auto;       /* auto يمين ويسار = توسيط الحاوية أفقياً في الصفحة */
+}
+
+/* ====================================================================
+   4) الوضع الليلي (Dark Mode) باستخدام خدعة الـ checkbox (CSS فقط بدون JavaScript)
+   الفكرة: نضع input من نوع checkbox مخفي في أول الصفحة مباشرة بعد body،
+   ثم نضع كل محتوى الصفحة داخل عنصر واحد اسمه .page-wrapper بعده مباشرة.
+   بما أن checkbox و .page-wrapper أصبحا "إخوة" في نفس المستوى،
+   نقدر نستخدم الرمز ~ (General Sibling) لنقول:
+   "إذا كان checkbox معلّم (checked) غيّر متغيرات الألوان داخل .page-wrapper"
+   وبما أن كل العناصر بالداخل تستخدم var(--color-...) فهي تتلون تلقائياً.
+   ==================================================================== */
+#theme-toggle {
+  position: absolute; /* نخرجه من التدفق الطبيعي حتى لا يأخذ مساحة */
+  opacity: 0;          /* نخفيه بصرياً لكنه يبقى موجود وقابل للنقر عن طريق label */
+  pointer-events: none; /* نمنع النقر المباشر عليه (سننقر على label بدلاً منه) */
+}
+
+/* عندما يكون checkbox معلّم (checked) نعيد تعريف المتغيرات اللونية بقيم داكنة */
+#theme-toggle:checked ~ .page-wrapper {
+  --color-bg: #1b1b2f;        /* خلفية داكنة */
+  --color-text: #f1f1f6;      /* نص فاتح يناسب الخلفية الداكنة */
+  --color-text-light: #b8b8d1;/* نص ثانوي أفتح قليلاً من الخلفية */
+  --color-card: #26263f;      /* خلفية الكروت داكنة */
+  --color-border: #35355a;    /* حدود داكنة */
+  --color-primary-light: #3a2233; /* وردي داكن كخلفية بدل الفاتح */
+}
+
+/* زر تبديل الوضع الليلي نفسه: نصمم شكله كدائرة صغيرة فيها أيقونة */
+.theme-label {
+  width: 42px;                       /* عرض الدائرة */
+  height: 42px;                      /* ارتفاع الدائرة */
+  border-radius: 50%;                /* 50% تحول المربع لدائرة كاملة */
+  background: var(--color-primary-light); /* خلفية وردية فاتحة */
+  display: flex;                     /* flex لتوسيط الأيقونة بداخلها */
+  align-items: center;               /* توسيط عمودي */
+  justify-content: center;           /* توسيط أفقي */
+  cursor: pointer;                   /* يد المؤشر تدل أنه قابل للنقر */
+  font-size: 18px;                   /* حجم رمز القمر/الشمس بالداخل */
+  transition: background 0.3s;       /* انتقال لوني ناعم عند التغيير */
+}
+
+/* الوضع الافتراضي: نظهر أيقونة القمر ونخفي أيقونة الشمس */
+.icon-sun { display: none; }
+.icon-moon { display: inline; }
+
+/* عند تفعيل الوضع الليلي: نعكس الظهور، تظهر الشمس وتختفي القمر */
+#theme-toggle:checked ~ .page-wrapper .icon-sun { display: inline; }
+#theme-toggle:checked ~ .page-wrapper .icon-moon { display: none; }
+
+/* ====================================================================
+   5) الهيدر وشريط التنقل (Navbar)
+   ==================================================================== */
+.navbar {
+  position: sticky;    /* الشريط يبقى ثابت أعلى الصفحة أثناء التمرير لأسفل */
+  top: 0;                /* يلتصق من أعلى الصفحة تماماً */
+  z-index: 100;          /* رقم عالي يضمن بقاءه فوق باقي العناصر عند التداخل */
+  background: var(--color-bg); /* نفس لون خلفية الصفحة حتى يندمج بصرياً */
+  padding: 18px 0;       /* مسافة داخلية من أعلى وأسفل الشريط */
+  border-bottom: 1px solid var(--color-border); /* خط فاصل خفيف أسفل الشريط */
+}
+
+.navbar .container {
+  display: flex;               /* flex لوضع الشعار والروابط بجانب بعضهم أفقياً */
+  align-items: center;         /* توسيط عمودي بين الشعار والقائمة */
+  justify-content: space-between; /* الشعار يسار، القائمة يمين (أو العكس في RTL)، والمسافة بينهم توزع تلقائياً */
+  gap: 16px;                   /* مسافة احتياطية بين العناصر عند ضيق الشاشة */
+  flex-wrap: nowrap;           /* يمنع نزول عناصر الهيدر لسطر جديد بشكل غير منظم */
+}
+
+.navbar .container > * {
+  min-width: 0; /* إصلاح مهم: افتراضياً عناصر flex لا تنكمش عن حجم محتواها، فتضيف هذا الصفر للسماح لها بالانكماش بدل التسبب بتراكب/قص النصوص */
+}
+
+.logo {
+  font-family: var(--font-heading); /* الشعار يستخدم الخط المستدير المميز */
+  font-size: 22px;                   /* حجم خط الشعار */
+  font-weight: 700;                  /* خط سميك (Bold) */
+  color: var(--color-text);          /* لون النص الأساسي */
+}
+
+.logo span {
+  color: var(--color-primary); /* كلمة "Malak" داخل الشعار تتلون باللون الوردي */
+}
+
+.nav-links {
+  display: flex;   /* عرض روابط القائمة بجانب بعضها أفقياً */
+  gap: 28px;        /* مسافة بين كل رابط والآخر */
+}
+
+.nav-links a {
+  font-weight: 500;              /* وزن خط متوسط */
+  color: var(--color-text);      /* لون النص الأساسي */
+  position: relative;            /* مرجع لتحديد موقع الخط السفلي عند hover */
+  padding-bottom: 4px;           /* مسافة بين النص والخط السفلي */
+  transition: color 0.3s;        /* تغيّر اللون يكون بسلاسة بدل فجأة */
+}
+
+.nav-links a:hover {
+  color: var(--color-primary); /* عند تمرير الماوس يتحول الرابط للون الوردي */
+}
+
+.nav-actions {
+  display: flex;        /* وضع زر اللغة وزر الوضع الليلي بجانب بعضهم */
+  align-items: center;  /* توسيط عمودي بينهم */
+  gap: 14px;             /* مسافة بين الزرين */
+}
+
+.lang-switch {
+  border: 1px solid var(--color-primary); /* إطار وردي رفيع */
+  color: var(--color-primary);             /* نص وردي */
+  padding: 8px 14px;                        /* حشو داخلي حول النص */
+  border-radius: var(--radius-md);          /* حواف دائرية متوسطة */
+  font-weight: 600;                         /* خط سميك قليلاً */
+  font-size: 14px;                          /* حجم خط صغير مناسب لزر ثانوي */
+  transition: background 0.3s, color 0.3s;  /* انتقال سلس للون الخلفية والنص */
+}
+
+.lang-switch:hover {
+  background: var(--color-primary); /* عند المرور تمتلئ الخلفية باللون الوردي */
+  color: #fff;                       /* ويتحول لون النص لأبيض ليبقى واضحاً */
+}
+
+/* ====================================================================
+   6) قسم الهيرو (Hero) - أول قسم يظهر في الصفحة
+   ==================================================================== */
+.hero {
+  position: relative;  /* مرجع لتموضع الأشكال الزخرفية المطلقة بداخله */
+  padding: 70px 0 40px; /* مسافة من أعلى وأسفل القسم */
+  overflow: hidden;     /* إخفاء أي جزء من الزخارف يخرج عن حدود القسم */
+}
+
+.hero .container {
+  display: grid;                      /* نستخدم grid لتقسيم القسم لعمودين */
+  grid-template-columns: 1fr 1fr;     /* عمودين متساويين في العرض */
+  align-items: center;                /* توسيط عمودي للمحتوى والصورة */
+  gap: 40px;                          /* مسافة بين العمودين */
+  position: relative;                 /* ليبقى فوق الأشكال الزخرفية في الخلفية */
+  z-index: 2;                         /* رقم أعلى من الزخارف كي يظهر المحتوى فوقها */
+}
+
+.hero-text,
+.hero-image-wrap {
+  min-width: 0; /* إصلاح مشكلة تراكب النصوص فوق الصورة: بدون هذا السطر، الصورة الكبيرة كانت تجبر عمودها على عرض أكبر من مساحته الحقيقية فتدهس النص المجاور لها */
+}
+
+.hero-greeting {
+  display: inline-flex;       /* flex لوضع الكلمة والإيموجي بجانب بعض */
+  align-items: center;         /* توسيط عمودي */
+  gap: 6px;                    /* مسافة صغيرة بين الكلمة والإيموجي */
+  font-family: var(--font-heading); /* خط العناوين المستدير */
+  color: var(--color-text);
+  font-size: 18px;
+  margin-bottom: 10px; /* مسافة أسفل هذا السطر قبل العنوان الكبير */
+}
+
+.hero h1 {
+  font-family: var(--font-heading); /* العنوان الرئيسي بالخط المستدير */
+  font-size: 48px;                   /* حجم كبير يلفت الانتباه */
+  line-height: 1.2;                  /* مسافة بين الأسطر مناسبة لحجم العنوان الكبير */
+  margin-bottom: 10px;               /* مسافة بينه وبين السطر التالي */
+}
+
+.hero h1 .highlight {
+  color: var(--color-primary); /* اسم "Malak" يتلون بالوردي ليبرز */
+}
+
+.hero .role {
+  font-family: var(--font-heading);
+  font-size: 30px;
+  color: var(--color-text-light);
+  margin-bottom: 18px; /* مسافة قبل الفقرة التعريفية */
+}
+
+.hero .role .highlight-blue {
+  color: var(--color-secondary); /* كلمة "Web" تتلون بالأزرق مطابقة للتصميم الأصلي */
+}
+
+.hero p.description {
+  color: var(--color-text-light); /* لون أفتح للفقرة الثانوية */
+  max-width: 460px;                /* لا تتمدد الفقرة بعرض كامل حتى تبقى مقروءة */
+  margin-bottom: 28px;             /* مسافة قبل الأزرار */
+}
+
+.hero-buttons {
+  display: flex;    /* وضع الزرين بجانب بعض */
+  gap: 16px;         /* مسافة بينهم */
+  margin-bottom: 30px; /* مسافة قبل أيقونات التواصل */
+}
+
+/* تنسيق عام لأي زر في الموقع (نستخدمه في أكثر من مكان) */
+.btn {
+  display: inline-flex;   /* flex داخلي لمحاذاة النص مع السهم أو الأيقونة */
+  align-items: center;     /* توسيط عمودي */
+  gap: 8px;                 /* مسافة بين النص والسهم */
+  padding: 14px 26px;       /* حشو داخلي يعطي الزر حجمه المريح */
+  border-radius: 30px;      /* حواف دائرية جداً (شكل كبسولة) */
+  font-weight: 600;          /* خط سميك قليلاً */
+  font-size: 15px;
+  transition: transform 0.25s, box-shadow 0.25s; /* عند hover يتحرك الزر بسلاسة */
+}
+
+.btn:hover {
+  transform: translateY(-3px); /* الزر يرتفع قليلاً للأعلى عند المرور عليه، إحساس بالتفاعل */
+}
+
+.btn-primary {
+  background: var(--color-primary); /* خلفية وردية */
+  color: #fff;                       /* نص أبيض ليتباين مع الخلفية */
+  box-shadow: var(--shadow-soft);    /* ظل وردي ناعم أسفل الزر */
+}
+
+.btn-primary:hover {
+  box-shadow: 0 14px 30px rgba(239, 106, 148, 0.3); /* ظل أقوى عند hover يعطي إحساس "رفع" الزر */
+}
+
+.btn-outline {
+  background: transparent;              /* بدون خلفية */
+  border: 2px solid var(--color-text);  /* إطار بلون النص */
+  color: var(--color-text);
+}
+
+.btn-outline:hover {
+  background: var(--color-text); /* عند hover تمتلئ الخلفية بلون النص */
+  color: var(--color-bg);         /* والنص يتحول للون الخلفية ليبقى مقروء (تبديل الألوان) */
+}
+
+.social-icons {
+  display: flex;  /* وضع أيقونات التواصل بجانب بعض */
+  gap: 12px;       /* مسافة بين كل أيقونة والأخرى */
+}
+
+.social-icons a {
+  width: 40px;                /* عرض الدائرة حول الأيقونة */
+  height: 40px;                /* ارتفاع الدائرة */
+  border-radius: 50%;          /* تحويلها لدائرة كاملة */
+  display: flex;               /* توسيط الأيقونة بداخل الدائرة */
+  align-items: center;
+  justify-content: center;
+  background: var(--color-card); /* خلفية بيضاء/فاتحة للدائرة */
+  box-shadow: var(--shadow-soft); /* ظل خفيف يعطي إحساس البروز */
+  transition: transform 0.25s;    /* حركة بسيطة عند hover */
+}
+
+.social-icons a:hover {
+  transform: translateY(-4px) scale(1.05); /* ترتفع الأيقونة وتكبر قليلاً عند المرور عليها */
+}
+
+/* صورة البطلة داخل الهيرو */
+.hero-image-wrap {
+  position: relative;        /* مرجع للزخارف اللي فوق الصورة */
+  z-index: 2;
+  width: 100%;
+  max-width: 460px;           /* نحدد أقصى عرض حتى لا يتمدد المتصفح بالصورة أكبر من دقتها الحقيقية فتصبح ضبابية (تكبير بدون بيانات إضافية = ضبابية) */
+  margin-inline-start: auto;  /* توسيط/محاذاة الصورة داخل عمودها عند تحديد أقصى عرض */
+  aspect-ratio: 1 / 1;        /* الحاوية مربعة الشكل دائماً مهما كان حجم الشاشة */
+  border-radius: 40% 60% 55% 45% / 55% 45% 60% 40%; /* حواف غير منتظمة بشكل "بلوب" عضوي يشبه التصميم الأصلي */
+  overflow: hidden;           /* أي جزء من الصورة يخرج عن هذا الشكل الغريب يتم إخفاؤه (هذا ما يصنع القص/الكروب) */
+  box-shadow: var(--shadow-soft);
+  background: var(--color-primary-light); /* لون خلفية يظهر خلف الصورة أثناء التحميل */
+}
+
+.hero-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;          /* الصورة تملأ الحاوية بالكامل دون تشويه، مع قص الزائد */
+  object-position: right 15%; /* نركّز على الجزء الأيمن العلوي من الصورة الأصلية حيث توجد رسمة الفتاة */
+  image-rendering: auto;      /* أفضل خوارزمية تصغير/عرض متاحة في المتصفح للحفاظ على أعلى وضوح ممكن للصورة */
+}
+
+/* الأشكال الزخرفية (بلوبات ملونة) خلف المحتوى، نفس روح التصميم الأصلي */
+.blob {
+  position: absolute; /* تتموضع بحرية داخل .hero بفضل position:relative على الأب */
+  border-radius: 50%;  /* دوائر ناعمة */
+  filter: blur(2px);    /* تمويه بسيط خفيف يعطي نعومة بصرية */
+  z-index: 1;            /* تبقى خلف المحتوى (الذي له z-index: 2) */
+  opacity: 0.8;          /* شفافية خفيفة حتى لا تطغى على المحتوى */
+}
+
+.blob-pink   { width: 260px; height: 260px; background: var(--color-primary-light); top: -60px;  left: -80px; }
+.blob-yellow { width: 150px; height: 150px; background: var(--color-yellow); top: 30px; right: 60px; opacity: 0.5; }
+.blob-green  { width: 200px; height: 200px; background: var(--color-green); bottom: -40px; left: 40%; opacity: 0.5; }
+.blob-blue   { width: 180px; height: 180px; background: var(--color-blue-soft); bottom: -60px; right: -40px; }
+/* كل سطر فوق يحدد أبعاد ولون وموقع بلوب معين (أعلى يسار/يمين/أسفل) ليوزع الألوان حول الصفحة مثل التصميم الأصلي */
+
+.scroll-hint {
+  display: flex;                   /* عمود واحد: الدائرة فوق، النص تحتها */
+  flex-direction: column;
+  align-items: center;             /* توسيط أفقي */
+  gap: 10px;                        /* مسافة بين الدائرة والنص */
+  width: fit-content;                /* الرابط يأخذ حجم محتواه فقط حتى لا يصبح منطقة نقر عريضة وغير مرتبة */
+  margin: 50px auto 0;              /* توسيط الزر أفقياً + مسافة فوقه تفصله عن باقي الهيرو */
+  color: var(--color-text-light);
+  font-size: 13px;
+  font-weight: 600;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s; /* تغيّر لون النص بسلاسة عند hover */
+}
+
+.scroll-hint:hover {
+  color: var(--color-primary); /* يتحول النص للون الوردي عند المرور عليه، يدل أنه قابل للنقر */
+}
+
+.scroll-hint .scroll-circle {
+  width: 42px;                                  /* عرض الدائرة المحيطة بالسهم */
+  height: 42px;                                  /* ارتفاعها، متساوي مع العرض ليكون شكلها دائرة كاملة */
+  border-radius: 50%;                             /* تحويل المربع لدائرة */
+  border: 2px solid var(--color-primary);         /* إطار وردي رفيع */
+  display: flex;                                   /* توسيط السهم بداخل الدائرة */
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--color-primary);
+  animation: scroll-bounce 1.8s ease-in-out infinite; /* تشغيل حركة الارتداد المعرّفة أدناه بشكل متكرر إلى ما لا نهاية */
+  transition: background 0.3s, color 0.3s;           /* انتقال سلس عند تغيّر الخلفية/اللون في hover */
+}
+
+.scroll-hint:hover .scroll-circle {
+  background: var(--color-primary); /* عند hover تمتلئ الدائرة باللون الوردي */
+  color: #fff;                       /* ويتحول السهم للأبيض ليبقى واضحاً فوق الخلفية الوردية */
+}
+
+/* حركة الارتداد: تحريك الدائرة لأسفل قليلاً ثم رجوعها، بشكل متكرر، توحي للزائر أن بإمكانه التمرير للأسفل */
+@keyframes scroll-bounce {
+  0%,
+  100% {
+    transform: translateY(0); /* الوضع الطبيعي: بدون إزاحة */
+  }
+  50% {
+    transform: translateY(8px); /* في منتصف الحركة: إزاحة 8px للأسفل */
+  }
+}
+
+/* ====================================================================
+   7) تنسيق عام لعناوين الأقسام (About / Skills / Projects / Contact)
+   ==================================================================== */
+.section {
+  padding: 90px 0; /* مسافة كبيرة أعلى وأسفل كل قسم لفصلها بصرياً عن بعض */
+}
+
+.section-title {
+  text-align: center;        /* توسيط عنوان القسم */
+  font-family: var(--font-heading);
+  font-size: 34px;
+  margin-bottom: 10px;
+}
+
+.section-title .highlight {
+  color: var(--color-primary); /* نفس أسلوب تمييز الكلمة بالوردي المستخدم في الهيرو */
+}
+
+.section-subtitle {
+  text-align: center;              /* توسيط الوصف أسفل العنوان */
+  color: var(--color-text-light);
+  max-width: 560px;                 /* لا يتمدد بعرض كامل حتى يبقى مقروء */
+  margin: 0 auto 50px;              /* توسيط أفقي + مسافة أسفله قبل بقية محتوى القسم */
+}
+
+/* ====================================================================
+   8) قسم About (نبذة عني)
+   ==================================================================== */
+.about-grid {
+  display: grid;                     /* تقسيم القسم لعمودين */
+  grid-template-columns: 1fr 1fr;    /* عمود للصورة وعمود للنص والإحصائيات */
+  gap: 50px;                          /* مسافة بين العمودين */
+  align-items: center;                /* توسيط عمودي */
+}
+
+.about-grid > * {
+  min-width: 0; /* نفس إصلاح التراكب المستخدم في الهيرو، يمنع الصورة من دفع العمود الآخر */
+}
+
+.about-image {
+  border-radius: var(--radius-lg);  /* حواف دائرية كبيرة للصورة */
+  overflow: hidden;                   /* قص أي زيادة في الصورة خارج الحواف الدائرية */
+  box-shadow: var(--shadow-soft);
+}
+
+.about-text p {
+  color: var(--color-text-light);
+  margin-bottom: 18px; /* مسافة بين كل فقرة والتي تليها */
+}
+
+.about-stats {
+  display: grid;                      /* شبكة للإحصائيات الثلاثة */
+  grid-template-columns: repeat(3, 1fr); /* ثلاثة أعمدة متساوية */
+  gap: 16px;                           /* مسافة بين كل بطاقة إحصائية */
+  margin-top: 26px;                    /* مسافة فوق الإحصائيات تفصلها عن الفقرات */
+}
+
+.stat-card {
+  background: var(--color-card);     /* خلفية بيضاء للبطاقة */
+  border: 1px solid var(--color-border); /* حدود خفيفة */
+  border-radius: var(--radius-md);    /* حواف دائرية */
+  padding: 18px 10px;                  /* حشو داخلي */
+  text-align: center;                  /* توسيط الرقم والنص بداخلها */
+}
+
+.stat-card .number {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  color: var(--color-primary); /* الرقم بارز باللون الوردي */
+  display: block;               /* يجعل الرقم في سطر مستقل عن النص تحته */
+}
+
+.stat-card .label {
+  font-size: 13px;
+  color: var(--color-text-light);
+}
+
+/* ====================================================================
+   9) قسم Skills (المهارات)
+   ==================================================================== */
+.skills-grid {
+  display: grid;                                   /* شبكة للمهارات */
+  grid-template-columns: repeat(3, 1fr);            /* ثلاثة أعمدة في الشاشات الكبيرة */
+  gap: 24px;                                         /* مسافة بين كل بطاقة مهارة */
+}
+
+.skill-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  transition: transform 0.25s; /* حركة بسيطة عند hover */
+}
+
+.skill-card:hover {
+  transform: translateY(-6px); /* البطاقة ترتفع قليلاً عند المرور عليها، إحساس بالتفاعل */
+}
+
+.skill-card .skill-top {
+  display: flex;                 /* وضع اسم المهارة والنسبة بجانب بعض */
+  justify-content: space-between; /* كل واحد في طرف */
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;                     /* سمك شريط التقدم */
+  background: var(--color-primary-light); /* لون الخلفية الفارغة للشريط */
+  border-radius: 10px;               /* حواف دائرية للشريط */
+  overflow: hidden;                   /* يخفي أي زيادة في الشريط الداخلي الملوّن عن الحواف الدائرية */
+}
+
+.progress-fill {
+  height: 100%;                    /* يملأ ارتفاع الشريط بالكامل */
+  background: var(--color-primary); /* اللون الوردي يمثل نسبة الإتقان */
+  border-radius: 10px;
+  /* ملاحظة: عرض كل شريط (width) يُحدَّد مباشرة داخل HTML بالسمة style="width:90%" مثلاً،
+     لأن كل مهارة لها نسبة مختلفة، فلا يصح تثبيت العرض هنا في CSS العام */
+}
+
+/* ====================================================================
+   10) قسم Projects (المشاريع)
+   ==================================================================== */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* ثلاث بطاقات مشاريع بجانب بعض */
+  gap: 26px;
+}
+
+.project-card {
+  background: var(--color-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;                /* يخفي زوائد الصورة عن حواف البطاقة الدائرية */
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.25s;
+}
+
+.project-card:hover {
+  transform: translateY(-8px); /* ترتفع البطاقة بوضوح أكبر عند hover لجذب الانتباه */
+}
+
+.project-thumb {
+  height: 170px;                 /* ارتفاع ثابت لمنطقة صورة/لون المشروع */
+  display: flex;                  /* توسيط أي محتوى بداخلها (هنا نستخدمها كخلفية ملونة فقط) */
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: #fff;
+}
+
+/* ثلاث خلفيات متدرجة مختلفة لكل بطاقة مشروع حتى لا تتشابه بصرياً */
+.thumb-1 { background: linear-gradient(135deg, #ef6a94, #ffb4c6); }
+.thumb-2 { background: linear-gradient(135deg, #5aa9e6, #a8d8ff); }
+.thumb-3 { background: linear-gradient(135deg, #ffb703, #ffe08a); }
+
+.project-body {
+  padding: 22px; /* حشو داخلي لمحتوى البطاقة النصي */
+}
+
+.project-body h3 {
+  font-family: var(--font-heading);
+  margin-bottom: 8px;
+}
+
+.project-body p {
+  color: var(--color-text-light);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.project-tags {
+  display: flex;       /* وضع الوسوم بجانب بعض */
+  flex-wrap: wrap;       /* السماح لها بالنزول لسطر جديد إذا ضاقت المساحة */
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.project-tags span {
+  background: var(--color-primary-light); /* خلفية وردية فاتحة لكل وسم */
+  color: var(--color-primary);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px; /* شكل كبسولة صغيرة */
+}
+
+.project-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ====================================================================
+   11) قسم Contact (التواصل)
+   ==================================================================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* عمود معلومات أصغر، وعمود النموذج أوسع قليلاً */
+  gap: 50px;
+}
+
+.contact-grid > * {
+  min-width: 0; /* نفس إصلاح التراكب، يمنع أي عنصر طويل من دفع العمود المجاور */
+}
+
+.contact-info .info-item {
+  display: flex;        /* وضع الأيقونة والنص بجانب بعض */
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.contact-info .info-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0; /* يمنع الدائرة من الانكماش إذا كان النص بجانبها طويل */
+}
+
+.contact-form {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  box-shadow: var(--shadow-soft);
+}
+
+.form-group {
+  margin-bottom: 18px; /* مسافة بين كل حقل إدخال والذي يليه */
+}
+
+.form-group label {
+  display: block;          /* يجعل كل label في سطر مستقل فوق الحقل */
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;                           /* الحقل يأخذ كامل عرض النموذج */
+  padding: 12px 14px;                     /* حشو داخلي مريح للكتابة */
+  border: 1px solid var(--color-border);  /* إطار خفيف حول الحقل */
+  border-radius: var(--radius-md);        /* حواف دائرية */
+  background: var(--color-bg);            /* خلفية تتناسق مع خلفية الصفحة */
+  color: var(--color-text);                /* لون النص المكتوب */
+  font-family: inherit;                     /* نفس خط الموقع */
+}
+
+.form-group textarea {
+  resize: vertical; /* يسمح للمستخدم بتكبير مربع الرسالة عمودياً فقط، وليس أفقياً حتى لا يكسر التصميم */
+  min-height: 110px;
+}
+
+.contact-form .btn {
+  width: 100%;           /* زر الإرسال يأخذ كامل عرض النموذج */
+  justify-content: center; /* توسيط النص داخل الزر */
+}
+
+/* ====================================================================
+   12) الفوتر (Footer)
+   ==================================================================== */
+.footer {
+  background: var(--color-primary-light); /* خلفية وردية فاتحة تميزه عن باقي الصفحة */
+  padding: 40px 0;
+  text-align: center;
+}
+
+.footer p {
+  color: var(--color-text);
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.footer .social-icons {
+  justify-content: center; /* توسيط أيقونات التواصل في الفوتر أفقياً */
+}
+
+/* ====================================================================
+   13) التجاوب مع الشاشات الصغيرة (Responsive / Media Query)
+   عندما يكون عرض الشاشة 768px أو أقل (موبايل/تابلت) نغيّر التخطيط
+   من أعمدة متجاورة إلى عمود واحد فوق الآخر، لأن الشاشة ضيقة.
+   ==================================================================== */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* نخفي روابط القائمة في الموبايل للتبسيط (الصفحة تبقى تعمل بالتمرير العادي) */
+  }
+
+  .hero .container,
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr; /* عمود واحد فقط بدل عمودين، فتنزل العناصر تحت بعضها */
+  }
+
+  .hero-image-wrap {
+    order: -1; /* نجعل الصورة تظهر فوق النص في الموبايل بدل تحته */
+  }
+
+  .skills-grid,
+  .projects-grid {
+    grid-template-columns: 1fr; /* بطاقة واحدة في كل سطر بدل ثلاثة */
+  }
+
+  .about-stats {
+    grid-template-columns: repeat(3, 1fr); /* نبقيها ثلاثة أعمدة صغيرة حتى في الموبايل */
+  }
+
+  .hero h1 {
+    font-size: 34px; /* تصغير حجم العنوان الكبير ليناسب الشاشة الصغيرة */
+  }
+}
+
+/* ====================================================================
+   14) دعم اتجاه النص من اليمين لليسار (RTL) للصفحة العربية
+   هذه القواعد تُفعَّل تلقائياً فقط عندما يكون <html dir="rtl">
+   كما هو الحال في ملف index-ar.html
+   ==================================================================== */
+[dir="rtl"] body {
+  font-family: 'Cairo', sans-serif; /* خط عربي مستدير يناسب روح التصميم */
+}
+
+[dir="rtl"] .hero h1,
+[dir="rtl"] .hero .role,
+[dir="rtl"] .logo,
+[dir="rtl"] .section-title,
+[dir="rtl"] .project-body h3 {
+  font-family: 'Cairo', sans-serif; /* نستخدم نفس الخط العربي للعناوين بدل Baloo 2 الذي لا يدعم العربية */
+}
+
+[dir="rtl"] .hero-greeting,
+[dir="rtl"] .hero p.description,
+[dir="rtl"] .about-text,
+[dir="rtl"] .section-subtitle {
+  text-align: right; /* محاذاة النص لليمين بدل اليسار */
+}
+
+/* ملاحظة: باقي الاتجاه (يمين/يسار) يُضبط تلقائياً بفضل dir="rtl" الموجودة على <html>،
+   لأن خاصية flex و grid تعكسان اتجاه العناصر تلقائياً حسب هذه السمة في أغلب المتصفحات الحديثة */

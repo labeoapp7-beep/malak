@@ -1,0 +1,285 @@
+<!--
+  ملف index-ar.html - النسخة العربية (الاتجاه RTL من اليمين لليسار)
+  نفس بالضبط هيكل index.html لكن النصوص مترجمة، و dir="rtl" يقلب اتجاه الصفحة تلقائياً
+  (الشعار ينتقل لليمين، القائمة والأزرار تتوزع بعكس الاتجاه، وهكذا)
+-->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <!-- lang="ar" = اللغة عربية. dir="rtl" = الكتابة من اليمين لليسار، وهذا ما يفعّل
+       قواعد [dir="rtl"] الموجودة في ملف style.css تلقائياً -->
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ملاك محمد | بورتفوليو مطورة ويب</title>
+
+    <!-- خط Cairo هو خط عربي مستدير ودود، يُستخدم فعلياً من داخل style.css
+         عبر قاعدة [dir="rtl"] body { font-family: 'Cairo', sans-serif; } -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- نفس ملف CSS المستخدم في النسخة الإنجليزية، لأن كل الألوان والأحجام مشتركة -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- checkbox الوضع الليلي، نفس الفكرة المشروحة في index.html -->
+    <input type="checkbox" id="theme-toggle" />
+
+    <div class="page-wrapper">
+      <!-- ====================== الهيدر وشريط التنقل ====================== -->
+      <header class="navbar">
+        <div class="container">
+          <div class="logo">ملاك <span>بورتفوليو</span></div>
+
+          <nav class="nav-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#about">نبذة عني</a>
+            <a href="#skills">المهارات</a>
+            <a href="#projects">المشاريع</a>
+            <a href="#contact">تواصل معي</a>
+          </nav>
+
+          <div class="nav-actions">
+            <!-- الرجوع للنسخة الإنجليزية -->
+            <a href="index.html" class="lang-switch">English</a>
+
+            <label for="theme-toggle" class="theme-label" aria-label="تبديل الوضع الليلي">
+              <span class="icon-moon">🌙</span>
+              <span class="icon-sun">☀️</span>
+            </label>
+          </div>
+        </div>
+      </header>
+
+      <!-- ====================== قسم الهيرو ====================== -->
+      <section class="hero" id="home">
+        <div class="blob blob-pink"></div>
+        <div class="blob blob-yellow"></div>
+        <div class="blob blob-green"></div>
+        <div class="blob blob-blue"></div>
+
+        <div class="container">
+          <div class="hero-text">
+            <p class="hero-greeting">أهلاً، أنا <span>👋</span></p>
+
+            <h1><span class="highlight">ملاك</span> محمد</h1>
+
+            <p class="role">مطورة <span class="highlight-blue">ويب</span></p>
+
+            <p class="description">
+              أنا مطورة ويب شغوفة بإنشاء مواقع جميلة وسهلة الاستخدام.
+              أستمتع بتحويل الأفكار إلى مشاريع حقيقية باستخدام HTML وCSS وأكثر.
+            </p>
+
+            <div class="hero-buttons">
+              <a href="#projects" class="btn btn-primary">شاهد مشاريعي ←</a>
+              <a href="#contact" class="btn btn-outline">تواصل معي</a>
+            </div>
+
+            <div class="social-icons">
+              <a href="https://github.com" target="_blank" rel="noopener">🐙</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener">📷</a>
+              <a href="https://t.me" target="_blank" rel="noopener">✈️</a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+            </div>
+          </div>
+
+          <div class="hero-image-wrap">
+            <img src="source.jpeg" alt="رسمة توضيحية لملاك وهي تعمل على الحاسوب" />
+          </div>
+        </div>
+
+        <!-- رابط حقيقي (<a>) قابل للنقر، ينقل المستخدم بسلاسة لقسم "نبذة عني" -->
+        <a href="#about" class="scroll-hint">
+          <span class="scroll-circle">⌄</span>
+          <span>مرري للأسفل</span>
+        </a>
+      </section>
+
+      <!-- ====================== قسم نبذة عني ====================== -->
+      <section class="section" id="about">
+        <div class="container">
+          <h2 class="section-title">نبذة <span class="highlight">عني</span></h2>
+          <p class="section-subtitle">تعريف سريع بمن أنا وماذا أفعل.</p>
+
+          <div class="about-grid">
+            <div class="about-image">
+              <img src="source.jpeg" alt="صورة شخصية لملاك محمد" />
+            </div>
+
+            <div class="about-text">
+              <p>
+                مرحباً! أنا ملاك، طالبة جامعية في السنة الثانية تخصص تطوير الويب.
+                أحب دمج الكود النظيف مع تصميم بسيط وودود لبناء مواقع يستمتع الناس باستخدامها.
+              </p>
+              <p>
+                أركّز حالياً على تقوية أساسياتي في HTML وCSS مع استكشاف JavaScript
+                وGit ومبادئ تجربة المستخدم الأساسية. هذا البورتفوليو نفسه هو أحد مشاريعي التدريبية!
+              </p>
+
+              <div class="about-stats">
+                <div class="stat-card">
+                  <span class="number">+12</span>
+                  <span class="label">مشروع</span>
+                </div>
+                <div class="stat-card">
+                  <span class="number">+2</span>
+                  <span class="label">سنوات تعلّم</span>
+                </div>
+                <div class="stat-card">
+                  <span class="number">+8</span>
+                  <span class="label">عميل سعيد</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== قسم المهارات ====================== -->
+      <section class="section" id="skills" style="background:var(--color-primary-light)">
+        <div class="container">
+          <h2 class="section-title"><span class="highlight">مهاراتي</span></h2>
+          <p class="section-subtitle">الأدوات والتقنيات التي أستخدمها لتحويل الأفكار إلى واقع.</p>
+
+          <div class="skills-grid">
+            <div class="skill-card">
+              <div class="skill-top"><span>HTML5</span><span>95%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>CSS3</span><span>90%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>JavaScript</span><span>70%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>التصميم المتجاوب</span><span>85%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>Git وGitHub</span><span>75%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-top"><span>Figma</span><span>65%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== قسم المشاريع ====================== -->
+      <section class="section" id="projects">
+        <div class="container">
+          <h2 class="section-title"><span class="highlight">مشاريعي</span></h2>
+          <p class="section-subtitle">بعض المشاريع التدريبية التي توضح ما تعلمته حتى الآن.</p>
+
+          <div class="projects-grid">
+            <article class="project-card">
+              <div class="project-thumb thumb-1">☕ مقهى</div>
+              <div class="project-body">
+                <h3>صفحة هبوط لمقهى</h3>
+                <p>صفحة هبوط دافئة لمقهى وهمي تحتوي على قائمة طعام وزر طلب.</p>
+                <div class="project-tags"><span>HTML</span><span>CSS</span></div>
+                <a href="https://github.com" target="_blank" rel="noopener" class="project-link">شاهد المشروع ←</a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-thumb thumb-2">📝 مدونة</div>
+              <div class="project-body">
+                <h3>موقع مدونة شخصية</h3>
+                <p>تصميم بسيط لمدونة يحتوي على بطاقات مقالات وشريط جانبي وتجربة قراءة مريحة.</p>
+                <div class="project-tags"><span>HTML</span><span>CSS</span><span>JS</span></div>
+                <a href="https://github.com" target="_blank" rel="noopener" class="project-link">شاهد المشروع ←</a>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-thumb thumb-3">🍳 وصفات</div>
+              <div class="project-body">
+                <h3>واجهة تطبيق بحث عن وصفات</h3>
+                <p>تصميم مرح لواجهة تصفح وحفظ الوصفات المفضلة.</p>
+                <div class="project-tags"><span>HTML</span><span>CSS</span></div>
+                <a href="https://github.com" target="_blank" rel="noopener" class="project-link">شاهد المشروع ←</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== قسم التواصل ====================== -->
+      <section class="section" id="contact" style="background:var(--color-primary-light)">
+        <div class="container">
+          <h2 class="section-title">تواصل <span class="highlight">معي</span></h2>
+          <p class="section-subtitle">لديك فكرة مشروع أو تريد فقط إلقاء التحية؟ راسلني من هنا.</p>
+
+          <div class="contact-grid">
+            <div class="contact-info">
+              <div class="info-item">
+                <span class="info-icon">📧</span>
+                <span>malak.dev@example.com</span>
+              </div>
+              <div class="info-item">
+                <span class="info-icon">📱</span>
+                <!-- dir="ltr" هنا يجبر رقم الهاتف على الظهور بترتيبه الصحيح من اليسار لليمين حتى داخل صفحة عربية RTL -->
+                <span dir="ltr">+967 777 123 456</span>
+              </div>
+              <div class="info-item">
+                <span class="info-icon">📍</span>
+                <span>صنعاء، اليمن</span>
+              </div>
+
+              <div class="social-icons">
+                <a href="https://github.com" target="_blank" rel="noopener">🐙</a>
+                <a href="https://instagram.com" target="_blank" rel="noopener">📷</a>
+                <a href="https://t.me" target="_blank" rel="noopener">✈️</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+              </div>
+            </div>
+
+            <form class="contact-form" action="#" method="get">
+              <div class="form-group">
+                <label for="name">الاسم الكامل</label>
+                <input type="text" id="name" name="name" placeholder="اسمك" required />
+              </div>
+              <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required />
+              </div>
+              <div class="form-group">
+                <label for="message">الرسالة</label>
+                <textarea id="message" name="message" placeholder="اكتب رسالتك..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">إرسال الرسالة</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================== الفوتر ====================== -->
+      <footer class="footer">
+        <p>© 2026 ملاك محمد. جميع الحقوق محفوظة.</p>
+        <div class="social-icons">
+          <a href="https://github.com" target="_blank" rel="noopener">🐙</a>
+          <a href="https://instagram.com" target="_blank" rel="noopener">📷</a>
+          <a href="https://t.me" target="_blank" rel="noopener">✈️</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
